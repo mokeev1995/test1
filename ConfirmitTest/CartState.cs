@@ -5,7 +5,7 @@ using ConfirmitTest.Products;
 
 namespace ConfirmitTest
 {
-    internal class CartState : ICartState
+    public class CartState : ICartState
     {
         private readonly ICart _cart;
 

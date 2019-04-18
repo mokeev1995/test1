@@ -4,13 +4,13 @@ namespace ConfirmitTest.Discounts
 {
     public class ProductDiscount
     {
-        private readonly double _percentValue;
+        public double PercentValue { get; }
         private readonly IProduct _product;
 
         public ProductDiscount(IProduct product, double percentValue)
         {
             _product = product;
-            _percentValue = percentValue;
+            PercentValue = percentValue;
         }
 
         public double Make(IProduct product)
@@ -22,7 +22,7 @@ namespace ConfirmitTest.Discounts
 
         private double GetNewPrice(IProduct product)
         {
-            return product.Price * (100 - _percentValue) / 100;
+            return product.Price * (100 - PercentValue) / 100;
         }
     }
 }

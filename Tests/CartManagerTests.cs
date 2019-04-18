@@ -1,22 +1,17 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using ConfirmitTest;
-using ConfirmitTest.Products;
 using Xunit;
 
 namespace Tests
 {
-    public static class TestProducts
+    class TestReceiptPrinter : IReceiptPrinter
     {
-        public static readonly IReadOnlyList<IProduct> Cars = new List<IProduct>
+        public ICartState CartState { get; private set; }
+        
+        public void Print(ICartState cart)
         {
-            new Car(1, "BMW", "X6M", 125_000),
-            new Car(2, "BMW", "X4", 80_000),
-            new Car(3, "BMW", "X3", 70_000),
-            new Car(4, "BMW", "X2", 60_000),
-            new Car(5, "BMW", "X1", 40_000),
-            new Car(6, "BMW", "X7", 130_000),
-        };
+            CartState = cart;
+        }
     }
 
     public class CartManagerTests
@@ -24,13 +19,47 @@ namespace Tests
         [Fact]
         public void AddProducts()
         {
-            var m = new CartManager(new Cart(), new ConsoleReceiptPrinter(), new DiscountsProvider());
-            m.AddProduct(TestProducts.Cars.First());
-            m.AddProduct(TestProducts.Cars.First());
-            m.AddDiscount("SOME_PRODUCT_DISCOUNT");
-            m.AddProduct(TestProducts.Cars.Skip(1).First());
+            var rp = new TestReceiptPrinter();
+            var m = new CartManager(new Cart(), rp, new DiscountsProvider());
+            var c1 = TestProducts.Cars.First();
+            var c2 = TestProducts.Cars.Skip(1).First();
+            m.AddProduct(c1);
+            m.AddProduct(c1);
+            m.AddProduct(c2);
 
             m.PrintReceipt();
+            var state = rp.CartState;
+            Assert.Equal(2, state.Products.Count);
+            Assert.Equal(2, state.Products[c1]);
+        }
+
+        [Fact]
+        public void AddDiscounts()
+        {
+            var rp = new TestReceiptPrinter();
+            var dp = new DiscountsProvider();
+            var m = new CartManager(new Cart(), rp, dp);
+            
+            var productDiscount = dp.GetProductsDiscounts().First();
+            var cartDiscount = dp.GetCartDiscounts().First();
+            
+            m.AddDiscount(productDiscount.Key);
+            m.AddDiscount(cartDiscount.Key);
+            
+            var c1 = TestProducts.Cars.First();
+            var c2 = TestProducts.Cars.Skip(1).First();
+            m.AddProduct(c1);
+            m.AddProduct(c2);
+            
+            m.PrintReceipt();
+            var state = rp.CartState;
+            
+            Assert.Equal(1, state.ProductDiscounts.Count);
+            Assert.Equal(c1, state.ProductDiscounts.First().Key);
+            Assert.Equal(productDiscount.Value.Value, state.ProductDiscounts.First().Value.PercentValue);
+            
+            Assert.Equal(1, state.CartDiscounts.Count);
+            Assert.Equal(cartDiscount.Value, state.CartDiscounts.First().PercentValue);
         }
     }
 }

@@ -2,16 +2,16 @@
 {
     public class CartDiscount
     {
-        private readonly int _percentValue;
+        public int PercentValue { get; }
 
         public CartDiscount(int percentValue)
         {
-            _percentValue = percentValue;
+            PercentValue = percentValue;
         }
 
         public double Make(double currentProductsPrice)
         {
-            return currentProductsPrice * (100 - _percentValue) / 100;
+            return currentProductsPrice * (100 - PercentValue) / 100;
         }
     }
 }

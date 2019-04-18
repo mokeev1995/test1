@@ -4,17 +4,9 @@ using System.Runtime.Serialization;
 namespace ConfirmitTest.Exceptions
 {
     [Serializable]
-    public class DiscountNotFoundException : DiscountException
+    public class DiscountNotFoundException : ApplicationException
     {
-        public DiscountNotFoundException()
-        {
-        }
-
         public DiscountNotFoundException(string message) : base(message)
-        {
-        }
-
-        public DiscountNotFoundException(string message, Exception innerException) : base(message, innerException)
         {
         }
 

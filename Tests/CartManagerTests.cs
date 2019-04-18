@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using ConfirmitTest;
+using ConfirmitTest.Exceptions;
 using Xunit;
 
 namespace Tests
@@ -60,6 +61,16 @@ namespace Tests
             
             Assert.Equal(1, state.CartDiscounts.Count);
             Assert.Equal(cartDiscount.Value, state.CartDiscounts.First().PercentValue);
+        }
+
+        [Fact]
+        public void AddNonExistingDiscount()
+        {
+            var rp = new TestReceiptPrinter();
+            var dp = new DiscountsProvider();
+            var m = new CartManager(new Cart(), rp, dp);
+
+            Assert.Throws<DiscountNotFoundException>(() => m.AddDiscount("NON_EXISTING_CODE"));
         }
 
         [Fact]
@@ -230,6 +241,27 @@ namespace Tests
             
             Assert.Equal(2, state.Products.Count);
             Assert.Equal(2, state.Products[c1]);
+        }
+
+        [Fact]
+        public void RedoAddProduct()
+        {
+            var rp = new TestReceiptPrinter();
+            var m = new CartManager(new Cart(), rp, new DiscountsProvider());
+            var c1 = TestProducts.Cars.First();
+            var c2 = TestProducts.Cars.Skip(1).First();
+            m.AddProduct(c1);
+            m.AddProduct(c1);
+            m.AddProduct(c2);
+            
+            m.Undo();
+            m.Redo();
+
+            m.PrintReceipt();
+            var state = rp.CartState;
+            Assert.Equal(2, state.Products.Count);
+            Assert.Equal(2, state.Products[c1]);
+            Assert.Equal(1, state.Products[c2]);
         }
     }
 }

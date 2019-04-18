@@ -55,7 +55,7 @@ namespace ConfirmitTest
         private double CalculatePriceForProduct(IProduct product, int count)
         {
             var itemPrice = ProductDiscounts.ContainsKey(product)
-                ? ProductDiscounts[product].Make(product)
+                ? ProductDiscounts[product].Make()
                 : product.Price;
 
             return itemPrice * count;

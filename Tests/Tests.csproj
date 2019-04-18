@@ -51,9 +51,13 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="AbstractProductTests.cs" />
+        <Compile Include="CarProductTests.cs" />
+        <Compile Include="CartDiscountTests.cs" />
         <Compile Include="CartManagerTests.cs" />
         <Compile Include="CartTests.cs" />
         <Compile Include="CommandsHistoryTests.cs" />
+        <Compile Include="ProductDiscountTests.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="TestProducts.cs" />
     </ItemGroup>

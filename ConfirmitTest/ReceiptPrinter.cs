@@ -16,7 +16,7 @@ namespace ConfirmitTest
                 if (cart.ProductDiscounts.ContainsKey(product.Key))
                 {
                     var discount = cart.ProductDiscounts[product.Key];
-                    itemPrice = discount.Make(product.Key);
+                    itemPrice = discount.Make();
                 }
 
                 var totalPrice = itemPrice * product.Value;

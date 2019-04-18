@@ -51,9 +51,7 @@
     <Compile Include="Discounts\CartDiscount.cs" />
     <Compile Include="ICommand.cs" />
     <Compile Include="Discounts\ProductDiscount.cs" />
-    <Compile Include="Exceptions\DiscountException.cs" />
     <Compile Include="Exceptions\DiscountNotFoundException.cs" />
-    <Compile Include="Exceptions\ProductRestoreException.cs" />
     <Compile Include="ICart.cs" />
     <Compile Include="ICartManager.cs" />
     <Compile Include="ICartState.cs" />

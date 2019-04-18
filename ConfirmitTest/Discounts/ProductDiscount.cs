@@ -13,16 +13,9 @@ namespace ConfirmitTest.Discounts
             PercentValue = percentValue;
         }
 
-        public double Make(IProduct product)
+        public double Make()
         {
-            return product.Id == _product.Id 
-                ? GetNewPrice(product) 
-                : product.Price;
-        }
-
-        private double GetNewPrice(IProduct product)
-        {
-            return product.Price * (100 - PercentValue) / 100;
+            return _product.Price * (100 - PercentValue) / 100;
         }
     }
 }

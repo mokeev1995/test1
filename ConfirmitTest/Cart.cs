@@ -48,7 +48,7 @@ namespace ConfirmitTest
 
             var newCount = currentCount - count;
 
-            if (newCount < 0)
+            if (newCount <= 0)
             {
                 CurrentState.Products.Remove(product);
                 return;

@@ -65,9 +65,10 @@ namespace Tests
             cart.AddProduct(c2, 1);
             
             cart.RemoveProduct(c1, 3);
-            
-            Assert.False(cart.CurrentState.Products.ContainsKey(c1));
+
             Assert.Equal(cart.CurrentState.Products.Count, 1);
+            Assert.False(cart.CurrentState.Products.ContainsKey(c1));
+            Assert.True(cart.CurrentState.Products.ContainsKey(c2));
         }
 
         [Fact]
@@ -91,11 +92,12 @@ namespace Tests
             var c1 = TestProducts.Cars.First();
             var c2 = TestProducts.Cars.Skip(1).First();
             cart.AddProduct(c1, 2);
+            cart.AddProduct(c2, 3);
             
             cart.RemoveProduct(c1, 1);
             
             Assert.True(cart.CurrentState.Products.ContainsKey(c1));
-            Assert.Equal(cart.CurrentState.Products.Count, 1);
+            Assert.Equal(cart.CurrentState.Products.Count, 2);
             Assert.Equal(cart.CurrentState.Products[c1], 1);
         }
 

@@ -6,8 +6,14 @@ using ConfirmitTest.Products;
 
 namespace ConfirmitTest
 {
+    
     public class CartManager : ICartManager
     {
+        private enum DiscountType
+        {
+            Unknown, Cart, Product
+        }
+        
         private readonly ICart _cart;
         private readonly IReceiptPrinter _receiptPrinter;
 
@@ -28,20 +34,26 @@ namespace ConfirmitTest
 
         public void AddDiscount(string code)
         {
+            var discountType = GetDiscountTypeByCode(code);
             ICommand command;
-            if (_productsDiscounts.ContainsKey(code))
+            switch (discountType)
             {
-                var (product, value) = _productsDiscounts[code];
-                command = new AddDiscountToProductInCartCommand(_cart, product, value);
-            }
-            else if (_cartDiscounts.ContainsKey(code))
-            {
-                var value = _cartDiscounts[code];
-                command = new AddDiscountToCartCommand(_cart, value);
-            }
-            else
-            {
-                throw new DiscountNotFoundException($"Discount with code `{code}` was not found");
+                case DiscountType.Product:
+                {
+                    var (product, value) = _productsDiscounts[code];
+                    command = new AddDiscountToProductInCartCommand(_cart, product, value);
+                    break;
+                }
+
+                case DiscountType.Cart:
+                {
+                    var value = _cartDiscounts[code];
+                    command = new AddDiscountToCartCommand(_cart, value);
+                    break;
+                }
+
+                default:
+                    throw new DiscountNotFoundException($"Discount with code `{code}` was not found");
             }
 
             _commandsHistory.Push(command);
@@ -83,6 +95,16 @@ namespace ConfirmitTest
         public void PrintReceipt()
         {
             _receiptPrinter.Print(_cart.CurrentState);
+        }
+
+        private DiscountType GetDiscountTypeByCode(string code)
+        {
+            if (_productsDiscounts.ContainsKey(code))
+                return DiscountType.Product;
+            if (_cartDiscounts.ContainsKey(code))
+                return DiscountType.Cart;
+            
+            return DiscountType.Unknown;
         }
     }
 }

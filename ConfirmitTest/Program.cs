@@ -54,7 +54,7 @@ namespace ConfirmitTest
 
         public static ICartManager GetCartManager()
         {
-            return new CartManager(new Cart(), new ConsoleReceiptPrinter());
+            return new CartManager(new Cart(), new ConsoleReceiptPrinter(), new DiscountsProvider());
         }
     }
 }

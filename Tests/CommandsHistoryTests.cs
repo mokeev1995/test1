@@ -1,7 +1,6 @@
 ﻿using System;
 using ConfirmitTest;
-using ConfirmitTest.Commands;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
 namespace Tests
 {
@@ -25,10 +24,9 @@ namespace Tests
         }
     }
 
-    [TestClass]
     public class CommandsHistoryTests
     {
-        [TestMethod]
+        [Fact]
         public void PopTest()
         {
             var c1 = new TestCommand("1");
@@ -39,12 +37,12 @@ namespace Tests
             ch.Push(c2);
             ch.Push(c3);
 
-            Assert.AreEqual(c3, ch.Pop());
-            Assert.AreEqual(c2, ch.Pop());
-            Assert.AreEqual(c1, ch.Pop());
+            Assert.Equal(c3, ch.Pop());
+            Assert.Equal(c2, ch.Pop());
+            Assert.Equal(c1, ch.Pop());
         }
 
-        [TestMethod]
+        [Fact]
         public void MovesForward()
         {
             var c1 = new TestCommand("1");
@@ -59,11 +57,11 @@ namespace Tests
             ch.Pop();
             var moved = ch.TryMoveForward(out var actual);
 
-            Assert.IsTrue(moved);
-            Assert.AreEqual(c2, actual);
+            Assert.True(moved);
+            Assert.Equal(c2, actual);
         }
 
-        [TestMethod]
+        [Fact]
         public void PushAfterPop()
         {
             var c1 = new TestCommand("1");
@@ -77,10 +75,10 @@ namespace Tests
             ch.Pop();
             ch.Push(c3);
 
-            Assert.AreEqual(c3, ch.Pop());
+            Assert.Equal(c3, ch.Pop());
         }
 
-        [TestMethod]
+        [Fact]
         public void CantMoveForward()
         {
             var c1 = new TestCommand("1");
@@ -93,11 +91,11 @@ namespace Tests
 
             var moved = ch.TryMoveForward(out var actual);
 
-            Assert.IsFalse(moved);
-            Assert.AreEqual(null, actual);
+            Assert.False(moved);
+            Assert.Equal(null, actual);
         }
 
-        [TestMethod]
+        [Fact]
         public void ClearingUnusedItems()
         {
             var c1 = new TestCommand("1");
@@ -115,7 +113,7 @@ namespace Tests
             ch.Pop();
             ch.Push(c4);
 
-            Assert.AreEqual(c4, ch.Pop());
+            Assert.Equal(c4, ch.Pop());
         }
     }
 }

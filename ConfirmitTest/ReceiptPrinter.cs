@@ -3,7 +3,7 @@ using System.Globalization;
 
 namespace ConfirmitTest
 {
-    class ConsoleReceiptPrinter : IReceiptPrinter
+    public class ConsoleReceiptPrinter : IReceiptPrinter
     {
         public void Print(ICartState cart)
         {

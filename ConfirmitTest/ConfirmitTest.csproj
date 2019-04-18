@@ -47,6 +47,7 @@
     <Compile Include="Commands\AddDiscountToCartCommand.cs" />
     <Compile Include="Commands\AddDiscountToProductInCartCommand.cs" />
     <Compile Include="Commands\AddProductToCartCommand.cs" />
+    <Compile Include="DiscountsProvider.cs" />
     <Compile Include="Discounts\CartDiscount.cs" />
     <Compile Include="ICommand.cs" />
     <Compile Include="Discounts\ProductDiscount.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="ICart.cs" />
     <Compile Include="ICartManager.cs" />
     <Compile Include="ICartState.cs" />
+    <Compile Include="IDiscountsProvider.cs" />
     <Compile Include="IReceiptPrinter.cs" />
     <Compile Include="Products\AbstractProduct.cs" />
     <Compile Include="Products\Car.cs" />

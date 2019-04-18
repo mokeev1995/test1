@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{A52F4A8F-D288-42A7-81CC-5AEBDA14DA8F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{2CFEADCE-25D5-44AB-A751-F9899AB7D0E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,10 +22,10 @@ Global
 		{2B0E7088-12F4-4AFE-BFD0-2059917757D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B0E7088-12F4-4AFE-BFD0-2059917757D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B0E7088-12F4-4AFE-BFD0-2059917757D1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A52F4A8F-D288-42A7-81CC-5AEBDA14DA8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A52F4A8F-D288-42A7-81CC-5AEBDA14DA8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A52F4A8F-D288-42A7-81CC-5AEBDA14DA8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A52F4A8F-D288-42A7-81CC-5AEBDA14DA8F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CFEADCE-25D5-44AB-A751-F9899AB7D0E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CFEADCE-25D5-44AB-A751-F9899AB7D0E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CFEADCE-25D5-44AB-A751-F9899AB7D0E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CFEADCE-25D5-44AB-A751-F9899AB7D0E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

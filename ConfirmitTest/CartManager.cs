@@ -11,23 +11,19 @@ namespace ConfirmitTest
         private readonly ICart _cart;
         private readonly IReceiptPrinter _receiptPrinter;
 
-        private readonly Dictionary<string, int> _cartDiscounts = new Dictionary<string, int>
-        {
-            {"SOME_CART_DISCOUNT", 10}
-        };
+        private readonly Dictionary<string, int> _cartDiscounts;
 
         private readonly CommandsHistory _commandsHistory = new CommandsHistory();
 
-        private readonly Dictionary<string, (IProduct Product, int Value)> _productsDiscounts =
-            new Dictionary<string, (IProduct Product, int Value)>
-            {
-                {"SOME_PRODUCT_DISCOUNT", (new Car(1, "BMW", "X6M", 125_000), 5)}
-            };
+        private readonly Dictionary<string, (IProduct Product, int Value)> _productsDiscounts;
 
-        public CartManager(ICart cart, IReceiptPrinter receiptPrinter)
+        public CartManager(ICart cart, IReceiptPrinter receiptPrinter, IDiscountsProvider discountsProvider)
         {
             _cart = cart;
             _receiptPrinter = receiptPrinter;
+            _cartDiscounts = discountsProvider.GetCartDiscounts();
+            _productsDiscounts = discountsProvider.GetProductsDiscounts();
+
         }
 
         public void AddDiscount(string code)

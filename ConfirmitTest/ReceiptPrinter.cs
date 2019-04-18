@@ -7,6 +7,7 @@ namespace ConfirmitTest
     {
         public void Print(ICartState cart)
         {
+            var culture = CultureInfo.GetCultureInfo("en-us");
             Console.WriteLine();
             Console.WriteLine(new string('-', 100));
 
@@ -19,12 +20,13 @@ namespace ConfirmitTest
                     itemPrice = discount.Make();
                 }
 
-                var totalPrice = itemPrice * product.Value;
-                Console.WriteLine($"{product.Key}\n\tCount: {product.Value}\t Price: {product.Key.Price} \t Total: {totalPrice}");
+                var totalPrice = (itemPrice * product.Value).ToString("C", culture);
+                var itemPriceStr = product.Key.Price.ToString("C", culture);
+                Console.WriteLine($"{product.Key}\n\tCount: {product.Value}\t Price: {itemPriceStr} \t Total: {totalPrice}");
             }
 
             Console.WriteLine(new string('-', 25));
-            Console.WriteLine($"Total: {cart.Total.ToString("C", CultureInfo.GetCultureInfo("en-us"))}");
+            Console.WriteLine($"Total: {cart.Total.ToString("C", culture)}");
 
             Console.WriteLine(new string('-', 100));
             Console.WriteLine();
